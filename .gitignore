@@ -1,0 +1,42 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build / dist
+dist/
+build/
+coverage/
+
+# Vite / bundlers cache
+.vite/
+.parcel-cache/
+.cache/
+
+# Env secrets (mantenha só .env.example no repo)
+.env
+.env.*
+!.env.example
+
+# Editor/OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.local
+
+# Test
+jest-html-reporters-*
+*.test.ts.snap
+*.test.js.snap
+
+# Misc
+*.log
+*.tgz
+*.swp
+*.swo

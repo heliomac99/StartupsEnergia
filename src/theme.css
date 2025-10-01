@@ -1,0 +1,207 @@
+/* ================================
+   THEME DARK — Texto claro global
+   ================================ */
+:root {
+  /* Fundo e superfícies */
+  --bg: #0b0b0b;
+  --surface: #111214;
+
+  /* Paleta de cinzas */
+  --gray-50:  #f9fafb;
+  --gray-100: #f4f4f5;
+  --gray-200: #e4e4e7;
+  --gray-300: #d4d4d8;
+  --gray-400: #a1a1aa;
+  --gray-500: #71717a;
+  --gray-600: #52525b;
+  --gray-700: #3f3f46;
+  --gray-800: #27272a;
+  --gray-900: #18181b;
+
+  /* Texto (padrões globais do tema) */
+  --text-strong: var(--gray-50);   /* títulos / ênfase */
+  --text-normal: var(--gray-100);  /* corpo (bem claro) */
+  --text-muted:  var(--gray-400);  /* secundário */
+  --text-subtle: var(--gray-500);  /* discreto */
+
+  /* Acento */
+  --accent: #7cf4c2;
+  --accent-ink: #0b2e23;
+
+  /* Radius e sombras */
+  --radius-lg: 18px;
+  --radius-sm: 12px;
+  --shadow-sm: 0 6px 20px rgba(0,0,0,.25);
+  --shadow-lg: 0 14px 40px rgba(0,0,0,.35);
+  --ring: 0 0 0 3px rgba(124,244,194,.25);
+
+  /* ================================
+     Overrides do Bootstrap 5
+     ================================ */
+  /* Fundo e cor de texto padrão (afeta TODO o app) */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text-normal);
+  /* Cor “de ênfase” (usada em headings/utilitários) */
+  --bs-emphasis-color: var(--text-strong);
+  /* Texto secundário/utilitário */
+  --bs-secondary-color: var(--text-muted);
+  --bs-tertiary-color: var(--text-subtle);
+
+  /* Links */
+  --bs-link-color: var(--accent);
+  --bs-link-hover-color: #9bf8d2;
+
+  /* Bordas e componentes */
+  --bs-border-color: rgba(255,255,255,.12);
+  --bs-card-bg: var(--surface);
+  --bs-card-color: var(--text-normal);
+  --bs-heading-color: var(--text-strong);
+
+  /* Inputs */
+  --bs-body-color-rgb: 244,244,245;
+  --bs-body-bg-rgb: 11,11,11;
+}
+
+/* ================================
+   Base / Layout
+   ================================ */
+html, body, #app { height: 100%; }
+body {
+  background:
+    radial-gradient(1200px 800px at 80% -10%, rgba(124,244,194,.06), transparent 60%),
+    radial-gradient(1000px 700px at -10% 10%, rgba(124,244,194,.05), transparent 60%),
+    var(--bg);
+  color: var(--text-normal);
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.container, .container-fluid { max-width: 1280px; }
+
+/* Headings automaticamente claros */
+h1, h2, h3, h4, h5, h6 { color: var(--text-strong); letter-spacing: -0.02em; font-weight: 800; }
+/* Parágrafos, listas, etc — já herdam var(--bs-body-color) = --text-normal */
+
+/* Utilitários alinhados à paleta (sem mexer em templates) */
+.text-muted    { color: var(--text-muted) !important; }
+.text-secondary{ color: var(--text-muted) !important; }
+.text-body     { color: var(--text-normal) !important; }
+
+/* Links */
+a { text-underline-offset: 3px; }
+a:hover { opacity: .95; }
+
+/* ================================
+   Cards modernos
+   ================================ */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,.01) 100%), var(--surface);
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(124,244,194,.25) !important;
+}
+.card .card-body { padding: 1.4rem 1.4rem 1.1rem; }
+
+/* Ícones grandes (ex.: nos cards) */
+.lead-icon { font-size: clamp(32px, 5vw, 44px); line-height: 1; color: var(--text-strong); }
+
+/* ================================
+   Botões
+   ================================ */
+.btn {
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  padding: .7rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+.btn:focus { box-shadow: var(--shadow-sm), var(--ring); }
+
+.btn-primary {
+  --bs-btn-color: var(--accent-ink);
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-bg: #9bf8d2;
+  --bs-btn-hover-color: var(--accent-ink);
+  --bs-btn-active-bg: #74e8be;
+  --bs-btn-disabled-bg: #2a2e2b;
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--text-normal);
+  --bs-btn-border-color: rgba(255,255,255,.18);
+  --bs-btn-hover-bg: rgba(255,255,255,.06);
+  --bs-btn-hover-color: var(--text-strong);
+  --bs-btn-hover-border-color: rgba(255,255,255,.28);
+}
+
+/* Badge “Essencial” (se existir no app) */
+.badge-essential {
+  background: rgba(124,244,194,.12);
+  border: 1px solid rgba(124,244,194,.35);
+  color: var(--accent);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: .45rem .8rem;
+}
+
+/* ================================
+   Formulários / Inputs
+   ================================ */
+.form-control, .form-select {
+  color: var(--text-normal);
+  background-color: #0f1012;
+  border: 1px solid rgba(255,255,255,.14);
+}
+.form-control::placeholder { color: var(--text-subtle); }
+.form-control:focus, .form-select:focus {
+  color: var(--text-strong);
+  background-color: #121316;
+  border-color: rgba(124,244,194,.4);
+  box-shadow: var(--ring);
+}
+
+/* Dropdowns, tooltips e menus */
+.dropdown-menu {
+  color: var(--text-normal);
+  background-color: #101114;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.dropdown-item { color: var(--text-normal); }
+.dropdown-item:hover, .dropdown-item:focus {
+  color: var(--text-strong);
+  background-color: rgba(255,255,255,.06);
+}
+
+/* Tabelas */
+.table {
+  --bs-table-color: var(--text-normal);
+  --bs-table-bg: transparent;
+  --bs-table-border-color: rgba(255,255,255,.12);
+}
+.table thead th { color: var(--text-strong); }
+
+/* ================================
+   Micro-interações / Acessibilidade
+   ================================ */
+a, .btn, .card { outline: none; }
+.card:focus-within { box-shadow: var(--shadow-sm), var(--ring); }
+
+/* Seções com respiro amplo e grid com gap adaptativo */
+.section { padding-block: clamp(24px, 3vw, 48px); }
+.grid-gap {
+  --gap: clamp(14px, 2vw, 22px);
+  row-gap: var(--gap);
+  column-gap: var(--gap);
+}
+
+.section {
+  background: var(--surface);
+  padding-block: clamp(24px, 3vw, 48px);
+}
