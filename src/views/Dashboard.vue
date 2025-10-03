@@ -4,7 +4,18 @@
     <div class="container-fluid px-4 py-4">
       <div class="d-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 text-strong mb-0">Dashboard — {{ device?.name || 'Dispositivo' }}</h1>
-        <router-link class="btn btn-outline-secondary" :to="{ name: 'home' }">← Voltar</router-link>
+        <div>
+           <router-link
+            style="margin-right: 10px;"
+            class="btn btn-primary"
+            :to="{ name: 'automatizacao', params: { id } }"
+            title="Configurar automação deste dispositivo"
+          >
+            ⚙️ Automatizar
+          </router-link>
+          <router-link class="btn btn-outline-secondary" :to="{ name: 'home' }">← Voltar</router-link>
+        </div>       
+
       </div>
 
       <div v-if="device" class="row g-4">

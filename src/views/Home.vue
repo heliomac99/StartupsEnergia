@@ -1,12 +1,12 @@
 <!-- src/views/Home.vue -->
 <template>
   <main>
-    <Hero />
+    <HomeWallpaper />
     <HomeSection />
   </main>
 </template>
 
 <script setup>
-import Hero from '@/components/Hero.vue'
+import HomeWallpaper from '@/components/HomeWallpaper.vue'
 import HomeSection from '@/components/HomeSection.vue'
 </script>

@@ -5,7 +5,8 @@
   /* Fundo e superfícies */
   --bg: #0b0b0b;
   --surface: #111214;
-
+  --bs-font-sans-serif: var(--font-sans);
+  --bs-heading-font-family: var(--font-sans);
   /* Paleta de cinzas */
   --gray-50:  #f9fafb;
   --gray-100: #f4f4f5;
@@ -204,4 +205,20 @@ a, .btn, .card { outline: none; }
 .section {
   background: var(--surface);
   padding-block: clamp(24px, 3vw, 48px);
+}
+
+.footer{
+  background-color: #0e0f11;
+}
+
+:root {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* aplica no site inteiro */
+html, body, #app {
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;  /* ativa var fonts automáticas */
+  font-feature-settings: "cv02","cv03","cv04","ss01","ss02","tnum"; /* números tabulares e sets modernos */
 }

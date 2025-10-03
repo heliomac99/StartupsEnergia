@@ -2,7 +2,7 @@
 <template>
   <section class="bg-surface text-normal">
     <!-- ===== Features ===== -->
-    <div class="container-fluid px-4 py-5 py-md-6">
+    <div class="container-fluid px-4 py-5 py-md-6" >
       <div class="row row-cols-1 row-cols-md-3 g-5 text-center">
         <div class="col">
           <div class="feature-icon mb-3"><i class="bi bi-currency-dollar"></i></div>
@@ -58,7 +58,7 @@
     <hr class="divider" />
 
     <!-- ===== Footer ===== -->
-    <footer class="py-5" style="background-color: black;">
+    <footer class="py-5 footer">
       <div class="container-fluid px-4">
         <div class="row gy-4">
           <div class="col-12 col-md-4">
@@ -109,23 +109,27 @@ const devices = [
 </script>
 
 <style scoped>
-.bg-surface { background: var(--surface); }
+/* fundo da seção/rodapé nessa cor */
+.bg-surface { background: #121316; }
 
-/* separadores sutis dentro do mesmo fundo */
+/* separador sutil ajustado para esse fundo */
 .divider {
   border: 0;
-  border-top: 1px solid rgba(255,255,255,.08);
+  /* um tom ~8% mais claro que #0e0f11 */
+  border-top: 1px solid #5c5e62;
+  /* se o navegador suportar, use um mix ainda mais suave */
+  border-top-color: color-mix(in srgb, #0e0f11 80%, #ffffff);
   margin: 0;
 }
 
-/* ícones grandes com a cor de destaque */
+/* ícones grandes – mantém o acento do tema */
 .feature-icon {
   font-size: 56px;
   line-height: 1;
   color: var(--accent);
 }
 
-/* links do footer */
+/* links do footer continuam legíveis nesse fundo */
 .footer-link {
   color: var(--text-normal);
   text-decoration: none;
@@ -135,4 +139,5 @@ const devices = [
   color: var(--accent);
   text-decoration: underline;
 }
+
 </style>
