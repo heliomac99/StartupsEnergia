@@ -8,14 +8,14 @@
           <div class="feature-icon mb-3"><i class="bi bi-currency-dollar"></i></div>
           <h3 class="h2 fw-bold mb-3 text-strong">Energia que cabe no bolso</h3>
           <p class="lead text-muted mb-0">
-            Baterias e power banks com excelente custo-benefício para sua rotina.
+            Baterias com excelente custo-benefício para sua rotina.
           </p>
         </div>
         <div class="col">
-          <div class="feature-icon mb-3"><i class="bi bi-battery-charging"></i></div>
-          <h3 class="h2 fw-bold mb-3 text-strong">Autonomia em qualquer lugar</h3>
+          <div class="feature-icon mb-3"><i class="bi bi-activity"></i></div>
+          <h3 class="h2 fw-bold mb-3 text-strong">Gerenciamento em tempo real</h3>
           <p class="lead text-muted mb-0">
-            Portáteis, leves e potentes: energia confiável onde você estiver.
+            Acompanhe cada dispositivo ao vivo e ative alertas e automações instantaneamente.
           </p>
         </div>
         <div class="col">
@@ -64,7 +64,7 @@
           <div class="col-12 col-md-4">
             <h5 class="fw-bold mb-3 text-strong">Energia+</h5>
             <address class="mb-2 text-normal">
-              123 Rua Exemplo<br>
+              Rua das Andorinha<br>
               São Paulo, SP 12345-000
             </address>
             <small class="text-subtle">© {{ year }} Energia+</small>
@@ -83,7 +83,6 @@
             <h5 class="fw-bold mb-3 text-strong">Produtos</h5>
             <ul class="list-unstyled">
               <li><a href="#" class="footer-link">Baterias</a></li>
-              <li><a href="#" class="footer-link">Power Banks</a></li>
               <li><em class="text-muted small">Energia confiável em qualquer lugar ⚡</em></li>
             </ul>
           </div>
@@ -99,12 +98,78 @@ import DeviceCard from './DeviceCard.vue'
 const year = new Date().getFullYear()
 
 const devices = [
-  { id: 1, name: 'Geladeira',            category: 'Cozinha',    powerW: 150, critical: true,  icon: '🧊' },
-  { id: 5, name: 'Portão Automático',    category: 'Acesso',     powerW: 400, critical: true,  icon: '🚪' },
-  { id: 6, name: 'Câmeras de Segurança', category: 'Segurança',  powerW: 30,  critical: true,  icon: '📹' },
-  { id: 2, name: 'Computador',           category: 'Escritório', powerW: 300, critical: false, icon: '💻' },
-  { id: 3, name: 'Lâmpada',              category: 'Iluminação', powerW: 10,  critical: false, icon: '💡' },
-  { id: 4, name: 'Televisão',            category: 'Sala',       powerW: 100, critical: false, icon: '📺' }
+  {
+    id: 1,
+    name: 'Geladeira Doméstica',
+    category: 'Cozinha',
+    powerW: 76,
+    consumptionMin: 48,
+    consumptionMax: 76,
+    consumptionAvg: 62,
+    estimatedDuration: 7,
+    critical: true,
+    icon: '🧊'
+  },
+  {
+    id: 2,
+    name: 'Freezer Horizontal',
+    category: 'Cozinha',
+    powerW: 69,
+    consumptionMin: 42,
+    consumptionMax: 69,
+    consumptionAvg: 55,
+    estimatedDuration: 7,
+    critical: true,
+    icon: '❄️'
+  },
+  {
+    id: 3,
+    name: 'Computador + Monitor',
+    category: 'Escritório',
+    powerW: 90,
+    consumptionMin: 90,
+    consumptionMax: 90,
+    consumptionAvg: 90,
+    estimatedDuration: 7,
+    critical: false,
+    icon: '💻'
+  },
+  {
+    id: 4,
+    name: 'Notebook',
+    category: 'Escritório',
+    powerW: 20,
+    consumptionMin: 20,
+    consumptionMax: 20,
+    consumptionAvg: 20,
+    estimatedDuration: 7,
+    critical: false,
+    icon: '🖥️'
+  },
+  {
+    id: 5,
+    name: 'Lâmpada de LED',
+    category: 'Iluminação',
+    powerW: 9,
+    consumptionMin: 9,
+    consumptionMax: 9,
+    consumptionAvg: 9,
+    estimatedDuration: 7,
+    critical: false,
+    icon: '💡'
+  },
+  {
+    id: 6,
+    name: 'Roteador Wi-Fi',
+    category: 'Comunicação',
+    powerW: 7,
+    consumptionMin: 7,
+    consumptionMax: 7,
+    consumptionAvg: 7,
+    estimatedDuration: 7,
+    critical: true,
+    icon: '📶'
+  }
 ]
 </script>
 

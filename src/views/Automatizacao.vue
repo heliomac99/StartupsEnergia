@@ -1,3 +1,4 @@
+<!-- src/views/AutomatizacaoView.vue (ou o nome que você usa para esta rota) -->
 <template>
   <section class="bg-surface min-vh-100">
     <div class="container-fluid px-4 py-4">
@@ -122,35 +123,42 @@ function goBack() {
   }
 }
 
-/* catálogo simples (troque por API/store quando quiser) */
+/* catálogo alinhado ao app (ids numéricos) */
 const catalog = [
-  { id: '1', name: 'Geladeira', category: 'Cozinha', powerW: 150, critical: true },
-  { id: '2', name: 'Computador', category: 'Escritório', powerW: 300, critical: false },
-  { id: '3', name: 'Lâmpada', category: 'Iluminação', powerW: 10, critical: false },
-  { id: '4', name: 'Televisão', category: 'Sala', powerW: 100, critical: false },
-  { id: '5', name: 'Portão Automático', category: 'Acesso', powerW: 400, critical: true },
-  { id: '6', name: 'Câmeras de Segurança', category: 'Segurança', powerW: 30, critical: true }
+  { id: 1, name: 'Geladeira Doméstica', category: 'Cozinha', powerW: 76,  critical: true  },
+  { id: 2, name: 'Freezer Horizontal',  category: 'Cozinha', powerW: 69,  critical: true  },
+  { id: 3, name: 'Computador + Monitor',category: 'Escritório', powerW: 90,  critical: false },
+  { id: 4, name: 'Notebook',            category: 'Escritório', powerW: 20,  critical: false },
+  { id: 5, name: 'Lâmpada de LED',      category: 'Iluminação', powerW: 9,   critical: false },
+  { id: 6, name: 'Roteador Wi-Fi',      category: 'Comunicação',powerW: 7,   critical: true  }
 ]
 
 /* id e nome do dispositivo (suporta :id e :idDispositivo) */
 const route = useRoute()
-const id = computed(() => String(route.params.id ?? route.params.idDispositivo ?? ''))
-const device = computed(() => catalog.find(d => d.id === id.value) || null)
-const deviceName = computed(() => device.value?.name || `Dispositivo #${id.value}`)
+// ✅ garantir número para comparar com o catálogo
+const devId = computed(() => Number(route.params.id ?? route.params.idDispositivo ?? NaN))
+const device = computed(() => catalog.find(d => Number(d.id) === devId.value) || null)
+const deviceName = computed(() => device.value?.name || (Number.isFinite(devId.value) ? `Dispositivo #${devId.value}` : 'Dispositivo'))
 
 /* storage */
-const STORAGE_KEY = 'automations'
+const STORAGE_KEY = 'automations:v1'
 const loadStore = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') } catch { return {} } }
 const saveStore = (s) => localStorage.setItem(STORAGE_KEY, JSON.stringify(s))
 const getDeviceRules = (devId) => {
   const s = loadStore()
-  return Array.isArray(s[devId]) ? s[devId] : []
+  const k = String(devId) // chave estável por dispositivo
+  return Array.isArray(s[k]) ? s[k] : []
 }
-const setDeviceRules = (devId, rules) => { const s = loadStore(); s[devId] = rules; saveStore(s) }
+const setDeviceRules = (devId, rules) => {
+  const s = loadStore()
+  const k = String(devId)
+  s[k] = rules
+  saveStore(s)
+}
 
 /* estado */
 const regras = ref([])
-watch(id, () => { regras.value = getDeviceRules(id.value) }, { immediate: true })
+watch(devId, () => { regras.value = getDeviceRules(devId.value) }, { immediate: true })
 
 const diasSemana = [
   { value: 1, label: 'Seg' }, { value: 2, label: 'Ter' }, { value: 3, label: 'Qua' },
@@ -166,8 +174,12 @@ const resetForm = () => {
 }
 const gerarId = () => 'r_' + Math.random().toString(36).slice(2, 9)
 
-/* ações (sem validação de horário) */
+/* ações (sem validação de horário — como no original) */
 function adicionarRegra() {
+  if (!Number.isFinite(devId.value)) {
+    alert('Dispositivo inválido.')
+    return
+  }
   const nova = {
     id: gerarId(),
     nome: form.nome || `Regra ${regras.value.length + 1}`,
@@ -177,16 +189,16 @@ function adicionarRegra() {
     habilitado: form.habilitado
   }
   regras.value = [...regras.value, nova]
-  setDeviceRules(id.value, regras.value)
+  setDeviceRules(devId.value, regras.value)
   resetForm()
 }
 const removerRegra = (ruleId) => {
   regras.value = regras.value.filter(r => r.id !== ruleId)
-  setDeviceRules(id.value, regras.value)
+  setDeviceRules(devId.value, regras.value)
 }
 const toggleRegra = (r) => {
   r.habilitado = !r.habilitado
-  setDeviceRules(id.value, regras.value)
+  setDeviceRules(devId.value, regras.value)
 }
 const editarRegra = (r) => {
   Object.assign(form, JSON.parse(JSON.stringify(r)))
@@ -196,7 +208,7 @@ const salvarEdicao = () => {
   const i = regras.value.findIndex(r => r.id === form.id)
   if (i >= 0) {
     regras.value[i] = JSON.parse(JSON.stringify(form))
-    setDeviceRules(id.value, regras.value)
+    setDeviceRules(devId.value, regras.value)
   }
   resetForm()
 }
@@ -206,12 +218,12 @@ const duplicarRegra = (r) => {
   c.id = gerarId()
   c.nome = r.nome + ' (cópia)'
   regras.value = [...regras.value, c]
-  setDeviceRules(id.value, regras.value)
+  setDeviceRules(devId.value, regras.value)
 }
 const limparRegras = () => {
   if (!confirm('Remover todas as regras deste dispositivo?')) return
   regras.value = []
-  setDeviceRules(id.value, regras.value)
+  setDeviceRules(devId.value, regras.value)
 }
 
 const renderDias = (arr) => {
